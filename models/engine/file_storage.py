@@ -76,13 +76,19 @@ class FileStorage:
            cls: class
            id: string representing the object ID
         """
-        return self.all()[f"{cls.__name__}.{id}"]
+        key = f"{cls.__name__}.{id}"
+        objs = self.all()
+        if key in objs:
+            return objs[key]
+        return None
 
     def count(self, cls=None):
         """
         count number of objects in storage
         """
-        if cls is None:
-            return len(self.all())
+        objs = self.all()
+
+        if not cls:
+            return len(objs)
         else:
             return len(self.all(cls))
