@@ -76,10 +76,7 @@ class FileStorage:
            cls: class
            id: string representing the object ID
         """
-        for key, obj in self.__objects.items():
-            if obj.__class__ == cls and obj.id == id:
-                return obj
-        return None
+        return self.all()[f"{cls.__name__}.{id}"]
 
     def count(self, cls=None):
         """
